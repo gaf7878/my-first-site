@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dance Show Events</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: white;
+      line-height: 1.5;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 14px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      font-weight: bold;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+    }
+
+    .nav a:hover { color: white; }
+
+    .lang-switch {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.65);
+      padding: 7px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: 0.25s ease;
+    }
+
+    .lang-btn:hover {
+      color: white;
+      border-color: rgba(255,255,255,0.35);
+    }
+
+    .lang-btn.active {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: bold;
+      transition: 0.25s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: white;
+      color: black;
+    }
+
+    .btn-primary:hover { background: #e9e9e9; }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      color: white;
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .btn-whatsapp:hover { background: #1fb85a; }
+
+    .btn-email {
+      background: #7c3aed;
+      color: white;
+    }
+
+    .btn-email:hover { background: #6d28d9; }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+        url('images/photo1.jpg') center/cover no-repeat;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 56px;
+      line-height: 1.05;
+      margin: 0 0 20px;
+      max-width: 760px;
+    }
+
+    .hero-subtitle {
+      font-size: 26px;
+      color: rgba(255,255,255,0.92);
+      max-width: 760px;
+      margin-bottom: 18px;
+    }
+
+    .hero-text {
+      font-size: 18px;
+      color: rgba(255,255,255,0.72);
+      max-width: 700px;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .section {
+      padding: 90px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .section-title {
+      font-size: 42px;
+      margin: 0 0 16px;
+      text-align: center;
+    }
+
+    .section-text {
+      max-width: 760px;
+      margin: 0 auto 44px;
+      text-align: center;
+      color: rgba(255,255,255,0.68);
+      font-size: 18px;
+    }
+
+    .card,
+    .contact-box,
+    .form-box,
+    .testimonial,
+    .pill,
+    .video-item {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      border-radius: 28px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .video-item {
+      overflow: hidden;
+    }
+
+    .video-item video {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      background: black;
+      border-radius: 28px 28px 0 0;
+    }
+
+    .video-caption {
+      padding: 16px 18px 20px;
+      color: rgba(255,255,255,0.72);
+      font-size: 15px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      padding: 30px;
+      min-height: 240px;
+    }
+
+    .card-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 22px;
+      margin-bottom: 22px;
+    }
+
+    .card h3 {
+      margin: 0 0 14px;
+      font-size: 24px;
+    }
+
+    .card p {
+      margin: 0;
+      color: rgba(255,255,255,0.68);
+      font-size: 17px;
+    }
+
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .pill {
+      padding: 14px 20px;
+      color: rgba(255,255,255,0.86);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .benefit {
+      padding: 22px 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.82);
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testimonial {
+      padding: 30px;
+    }
+
+    .testimonial p {
+      color: rgba(255,255,255,0.82);
+      font-size: 17px;
+    }
+
+    .testimonial .meta {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.55);
+      font-size: 14px;
+    }
+
+    .cta-box {
+      text-align: center;
+      padding: 56px 28px;
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: radial-gradient(circle at top, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .contact-box,
+    .form-box {
+      padding: 30px;
+    }
+
+    .contact-line {
+      margin-bottom: 18px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .form-box input,
+    .form-box textarea {
+      width: 100%;
+      margin-bottom: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 15px;
+    }
+
+    .form-box textarea::placeholder,
+    .form-box input::placeholder {
+      color: rgba(255,255,255,0.45);
+    }
+
+    .form-box textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 30px 0 40px;
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+    }
+
+    @media (max-width: 992px) {
+      .grid-3,
+      .testimonials,
+      .contact-grid,
+      .benefits,
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .hero-subtitle {
+        font-size: 22px;
+      }
+
+      .video-item video,
+      .gallery img {
+        height: 320px;
+      }
+
+      .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        gap: 14px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 120px 0 80px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      .section-title {
+        font-size: 32px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .video-item video,
+      .gallery img {
+        height: 260px;
+      }
+
+      .header-right {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-row">
+      <div class="logo">Dance Show Events</div>
+
+      <div class="header-right">
+        <nav class="nav">
+          <a href="#about" data-i18n="nav_about">O nás</a>
+          <a href="#services" data-i18n="nav_services">Formáty</a>
+          <a href="#gallery" data-i18n="nav_gallery">Galerie</a>
+          <a href="#contact" data-i18n="nav_contacts">Kontakt</a>
+        </nav>
+
+        <div class="lang-switch">
+          <button class="lang-btn active" id="btn-cs" onclick="setLang('cs')">CZ</button>
+          <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" id="btn-uk" onclick="setLang('uk')">UA</button>
+        </div>
+
+        <button class="btn btn-whatsapp" type="button" onclick="sendWhatsApp()">
+          WhatsApp
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow" data-i18n="hero_eyebrow">Show pro firemní akce</div>
+      <h1 data-i18n="hero_title">Dance Show Events</h1>
+      <div class="hero-subtitle" data-i18n="hero_subtitle">Taneční show, které promění akci v nezapomenutelný zážitek</div>
+      <div class="hero-text" data-i18n="hero_text">
+        Vytváříme výrazná scénická vystoupení pro firemní večírky, gala večery, konference, výročí společností a special events.
+      </div>
+      <div class="hero-actions">
+        <a href="#showreel" class="btn btn-primary" data-i18n="hero_btn_video">Podívat se na showreel</a>
+        <a href="#contact" class="btn btn-secondary" data-i18n="hero_btn_offer">Získat nabídku</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="showreel" class="section">
+    <div class="container">
+      <div class="eyebrow" style="text-align:center;" data-i18n="video_eyebrow">Video</div>
+      <h2 class="section-title" data-i18n="video_title">Podívejte se, jak to vypadá</h2>
+      <p class="section-text" data-i18n="video_text">
+        Živá vystoupení, energie pódia a emoce hostů — ve formátu, který posílí vaši akci.
+      </p>
+
+      <div class="video-grid">
+        <div class="video-item">
+          <video controls preload="metadata" poster="images/photo1.jpg">
+            <source src="videos/video1.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption" data-i18n="video_caption_1">Showreel č. 1</div>
+        </div>
+
+        <div class="video-item">
+          <video controls preload="metadata" poster="images/photo2.jpg">
+            <source src="videos/video2.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption" data-i18n="video_caption_2">Showreel č. 2</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <div class="eyebrow" style="text-align:center;" data-i18n="about_eyebrow">O nás</div>
+      <h2 class="section-title" data-i18n="about_title">Prémiová scénická řešení pro eventy</h2>
+      <p class="section-text" data-i18n="about_text">
+        Tvoříme show pro firmy, eventové agentury a organizátory akcí v České republice i po celé Evropě.
+      </p>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <div class="eyebrow" style="text-align:center;" data-i18n="services_eyebrow">Formáty</div>
+      <h2 class="section-title" data-i18n="services_title">Co nabízíme</h2>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">✦</div>
+          <h3 data-i18n="service1_title">Show programy</h3>
+          <p data-i18n="service1_text">Scénická vystoupení pro firemní akce, konference a gala večery.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">◎</div>
+          <h3 data-i18n="service2_title">Interakce s hosty</h3>
+          <p data-i18n="service2_text">Flash moby, zapojení publika a účast týmu ve vystoupení.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">◌</div>
+          <h3 data-i18n="service3_title">Individuální choreografie</h3>
+          <p data-i18n="service3_text">Show na míru podle značky, tématu akce nebo speciálního scénáře.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow" style="text-align:center;" data-i18n="events_eyebrow">Pro jaké akce</div>
+      <h2 class="section-title" data-i18n="events_title">Ideální pro</h2>
+
+      <div class="pill-grid">
+        <div class="pill" data-i18n="event1">Firemní akce</div>
+        <div class="pill" data-i18n="event2">Gala večeře</div>
+        <div class="pill" data-i18n="event3">Konference a otevření</div>
+        <div class="pill" data-i18n="event4">Teambuildingy</div>
+        <div class="pill" data-i18n="event5">Výročí společností</div>
+        <div class="pill" data-i18n="event6">Prezentace a launch eventy</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="section">
+    <div class="container">
+      <div class="eyebrow" style="text-align:center;" data-i18n="gallery_eyebrow">Galerie</div>
+      <h2 class="section-title" data-i18n="gallery_title">Momenty z našich vystoupení</h2>
+
+      <div class="gallery">
+        <img src="images/photo1.jpg" alt="Photo 1">
+        <img src="images/photo2.jpg" alt="Photo 2">
+        <img src="images/photo3.jpg" alt="Photo 3">
+        <img src="images/photo4.jpg" alt="Photo 4">
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow" style="text-align:center;" data-i18n="why_eyebrow">Proč my</div>
+      <h2 class="section-title" data-i18n="why_title">Proč si nás vybírají</h2>
+
+      <div class="benefits">
+        <div class="benefit" data-i18n="benefit1">Profesionální tanečníci se scénickou zkušeností</div>
+        <div class="benefit" data-i18n="benefit2">Flexibilní formáty pro různé typy akcí</div>
+        <div class="benefit" data-i18n="benefit3">Rychlá komunikace a jednoduché schválení</div>
+        <div class="benefit" data-i18n="benefit4">Individuální přístup ke každému klientovi</div>
+        <div class="benefit" data-i18n="benefit5">Působíme v Česku i po celé Evropě</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow" style="text-align:center;" data-i18n="reviews_eyebrow">Reference</div>
+      <h2 class="section-title" data-i18n="reviews_title">Co říkají klienti</h2>
+
+      <div class="testimonials">
+        <div class="testimonial">
+          <p data-i18n="review1_text">“Tým vytvořil přesně ten wow efekt, který jsme chtěli pro naši firemní večeři. Všechno bylo stylové, profesionální a komunikace byla velmi snadná.”</p>
+          <div class="meta" data-i18n="review1_meta">Olena K. · Event Manager, NOVA GROUP</div>
+        </div>
+
+        <div class="testimonial">
+          <p data-i18n="review2_text">“Vystoupení bylo výrazné, moderní a perfektně sedělo našemu publiku. Hosté o show mluvili ještě dlouho po akci.”</p>
+          <div class="meta" data-i18n="review2_meta">Marek R. · Marketing Lead, VISTRA</div>
+        </div>
+
+        <div class="testimonial">
+          <p data-i18n="review3_text">“Oceňujeme, že tým rychle přizpůsobil formát našemu eventu a navrhl řešení, které skutečně posílilo celý večer.”</p>
+          <div class="meta" data-i18n="review3_meta">Iryna L. · HR Manager, ALTERRA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-box">
+        <div class="eyebrow" data-i18n="cta_eyebrow">Poptávka</div>
+        <h2 class="section-title" style="margin-top:0;" data-i18n="cta_title">Pojďme udělat vaši akci nezapomenutelnou</h2>
+        <p class="section-text" style="margin-bottom:28px;" data-i18n="cta_text">
+          Napište nám o své akci — navrhneme formát show, který bude sedět právě vám.
+        </p>
+        <a href="#contact" class="btn btn-primary" data-i18n="cta_btn">Získat nabídku</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-box">
+          <div class="eyebrow" data-i18n="contact_eyebrow">Kontakt</div>
+          <h2 style="margin-top:0;" data-i18n="contact_title">Spojte se s námi</h2>
+          <p style="color: rgba(255,255,255,0.68); margin-bottom: 28px;" data-i18n="contact_text">
+            Napište nám a pomůžeme vám vybrat ideální formát vystoupení pro vaši akci.
+          </p>
+
+          <div class="contact-line"><strong>Email:</strong> gaf7878@gmail.com</div>
+          <div class="contact-line"><strong data-i18n="contact_phone_label">Telefon / WhatsApp</strong>: +420 606 034 397</div>
+          <div class="contact-line"><strong data-i18n="contact_location_label">Lokalita</strong>: <span data-i18n="contact_location">Česko / Evropa</span></div>
+
+          <div style="margin-top: 24px; display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn btn-whatsapp" type="button" onclick="sendWhatsApp()" data-i18n="whatsapp_btn">
+              Odeslat přes WhatsApp
+            </button>
+          </div>
+        </div>
+
+        <div class="form-box">
+          <input id="name" type="text" placeholder="Jméno">
+          <input id="company" type="text" placeholder="Společnost">
+          <input id="eventType" type="text" placeholder="Typ akce">
+          <input id="date" type="text" placeholder="Datum">
+          <textarea id="message" placeholder="Zpráva"></textarea>
+
+          <div class="form-actions">
+            <button class="btn btn-email" type="button" onclick="sendEmail()" data-i18n="form_email">
+              Odeslat na email
+            </button>
+            <button class="btn btn-whatsapp" type="button" onclick="sendWhatsApp()" data-i18n="form_whatsapp">
+              WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <span data-i18n="footer_text">Dance Show Events · Taneční show pro firemní akce · © 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      cs: {
+        nav_about: "O nás",
+        nav_services: "Formáty",
+        nav_gallery: "Galerie",
+        nav_contacts: "Kontakt",
+
+        hero_eyebrow: "Show pro firemní akce",
+        hero_title: "Dance Show Events",
+        hero_subtitle: "Taneční show, které promění akci v nezapomenutelný zážitek",
+        hero_text: "Vytváříme výrazná scénická vystoupení pro firemní večírky, gala večery, konference, výročí společností a special events.",
+        hero_btn_video: "Podívat se na showreel",
+        hero_btn_offer: "Získat nabídku",
+
+        video_eyebrow: "Video",
+        video_title: "Podívejte se, jak to vypadá",
+        video_text: "Živá vystoupení, energie pódia a emoce hostů — ve formátu, který posílí vaši akci.",
+        video_caption_1: "Showreel č. 1",
+        video_caption_2: "Showreel č. 2",
+
+        about_eyebrow: "O nás",
+        about_title: "Prémiová scénická řešení pro eventy",
+        about_text: "Tvoříme show pro firmy, eventové agentury a organizátory akcí v České republice i po celé Evropě.",
+
+        services_eyebrow: "Formáty",
+        services_title: "Co nabízíme",
+        service1_title: "Show programy",
+        service1_text: "Scénická vystoupení pro firemní akce, konference a gala večery.",
+        service2_title: "Interakce s hosty",
+        service2_text: "Flash moby, zapojení publika a účast týmu ve vystoupení.",
+        service3_title: "Individuální choreografie",
+        service3_text: "Show na míru podle značky, tématu akce nebo speciálního scénáře.",
+
+        events_eyebrow: "Pro jaké akce",
+        events_title: "Ideální pro",
+        event1: "Firemní akce",
+        event2: "Gala večeře",
+        event3: "Konference a otevření",
+        event4: "Teambuildingy",
+        event5: "Výročí společností",
+        event6: "Prezentace a launch eventy",
+
+        gallery_eyebrow: "Galerie",
+        gallery_title: "Momenty z našich vystoupení",
+
+        why_eyebrow: "Proč my",
+        why_title: "Proč si nás vybírají",
+        benefit1: "Profesionální tanečníci se scénickou zkušeností",
+        benefit2: "Flexibilní formáty pro různé typy akcí",
+        benefit3: "Rychlá komunikace a jednoduché schválení",
+        benefit4: "Individuální přístup ke každému klientovi",
+        benefit5: "Působíme v Česku i po celé Evropě",
+
+        reviews_eyebrow: "Reference",
+        reviews_title: "Co říkají klienti",
+        review1_text: "“Tým vytvořil přesně ten wow efekt, který jsme chtěli pro naši firemní večeři. Všechno bylo stylové, profesionální a komunikace byla velmi snadná.”",
+        review1_meta: "Olena K. · Event Manager, NOVA GROUP",
+        review2_text: "“Vystoupení bylo výrazné, moderní a perfektně sedělo našemu publiku. Hosté o show mluvili ještě dlouho po akci.”",
+        review2_meta: "Marek R. · Marketing Lead, VISTRA",
+        review3_text: "“Oceňujeme, že tým rychle přizpůsobil formát našemu eventu a navrhl řešení, které skutečně posílilo celý večer.”",
+        review3_meta: "Iryna L. · HR Manager, ALTERRA",
+
+        cta_eyebrow: "Poptávka",
+        cta_title: "Pojďme udělat vaši akci nezapomenutelnou",
+        cta_text: "Napište nám o své akci — navrhneme formát show, který bude sedět právě vám.",
+        cta_btn: "Získat nabídku",
+
+        contact_eyebrow: "Kontakt",
+        contact_title: "Spojte se s námi",
+        contact_text: "Napište nám a pomůžeme vám vybrat ideální formát vystoupení pro vaši akci.",
+        contact_phone_label: "Telefon / WhatsApp",
+        contact_location_label: "Lokalita",
+        contact_location: "Česko / Evropa",
+        whatsapp_btn: "Odeslat přes WhatsApp",
+        form_email: "Odeslat na email",
+        form_whatsapp: "WhatsApp",
+        footer_text: "Dance Show Events · Taneční show pro firemní akce · © 2026",
+
+        ph_name: "Jméno",
+        ph_company: "Společnost",
+        ph_eventType: "Typ akce",
+        ph_date: "Datum",
+        ph_message: "Zpráva"
+      },
+
+      en: {
+        nav_about: "About",
+        nav_services: "Formats",
+        nav_gallery: "Gallery",
+        nav_contacts: "Contact",
+
+        hero_eyebrow: "Shows for corporate events",
+        hero_title: "Dance Show Events",
+        hero_subtitle: "Dance performances that turn your event into an unforgettable experience",
+        hero_text: "We create high-impact stage performances for corporate parties, gala dinners, conferences, company anniversaries and special events.",
+        hero_btn_video: "Watch showreel",
+        hero_btn_offer: "Get an offer",
+
+        video_eyebrow: "Video",
+        video_title: "See how it looks",
+        video_text: "Live performances, stage energy and guest emotions — in a format that elevates your event.",
+        video_caption_1: "Showreel No. 1",
+        video_caption_2: "Showreel No. 2",
+
+        about_eyebrow: "About",
+        about_title: "Premium stage solutions for events",
+        about_text: "We create shows for companies, event agencies and event organizers in the Czech Republic and across Europe.",
+
+        services_eyebrow: "Formats",
+        services_title: "What we offer",
+        service1_title: "Show programs",
+        service1_text: "Stage performances for corporate events, conferences and gala evenings.",
+        service2_title: "Guest interaction",
+        service2_text: "Flash mobs, audience engagement and team participation in the performance.",
+        service3_title: "Custom productions",
+        service3_text: "Tailor-made shows for your brand, event theme or special scenario.",
+
+        events_eyebrow: "For which events",
+        events_title: "Perfect for",
+        event1: "Corporate events",
+        event2: "Gala dinners",
+        event3: "Conferences and openings",
+        event4: "Team buildings",
+        event5: "Company anniversaries",
+        event6: "Presentations and launches",
+
+        gallery_eyebrow: "Gallery",
+        gallery_title: "Moments from our performances",
+
+        why_eyebrow: "Why us",
+        why_title: "Why clients choose us",
+        benefit1: "Professional dancers with stage experience",
+        benefit2: "Flexible formats for different event types",
+        benefit3: "Fast communication and easy coordination",
+        benefit4: "Individual approach to every client",
+        benefit5: "We work in the Czech Republic and across Europe",
+
+        reviews_eyebrow: "Testimonials",
+        reviews_title: "What clients say",
+        review1_text: "“The team created exactly the wow effect we wanted for our corporate dinner. Everything felt stylish, professional and very easy to manage.”",
+        review1_meta: "Olena K. · Event Manager, NOVA GROUP",
+        review2_text: "“The performance was vibrant, modern and perfectly suited to our audience. Guests kept talking about the show long after the event.”",
+        review2_meta: "Marek R. · Marketing Lead, VISTRA",
+        review3_text: "“We appreciated how quickly the team adapted the format to our event and proposed a solution that genuinely elevated the evening program.”",
+        review3_meta: "Iryna L. · HR Manager, ALTERRA",
+
+        cta_eyebrow: "Request",
+        cta_title: "Let’s make your event unforgettable",
+        cta_text: "Tell us about your event — we will suggest the show format that fits it best.",
+        cta_btn: "Get an offer",
+
+        contact_eyebrow: "Contact",
+        contact_title: "Get in touch",
+        contact_text: "Write to us and we will help you choose the right performance format for your event.",
+        contact_phone_label: "Phone / WhatsApp",
+        contact_location_label: "Location",
+        contact_location: "Czech Republic / Europe",
+        whatsapp_btn: "Send via WhatsApp",
+        form_email: "Send by email",
+        form_whatsapp: "WhatsApp",
+        footer_text: "Dance Show Events · Dance shows for corporate events · © 2026",
+
+        ph_name: "Name",
+        ph_company: "Company",
+        ph_eventType: "Type of event",
+        ph_date: "Date",
+        ph_message: "Message"
+      },
+
+      uk: {
+        nav_about: "Про нас",
+        nav_services: "Формати",
+        nav_gallery: "Галерея",
+        nav_contacts: "Контакти",
+
+        hero_eyebrow: "Шоу для корпоративних подій",
+        hero_title: "Dance Show Events",
+        hero_subtitle: "Танцювальні шоу, які перетворюють подію на незабутнє враження",
+        hero_text: "Створюємо яскраві сценічні виступи для корпоративів, гала-вечерь, конференцій, ювілеїв компаній та special events.",
+        hero_btn_video: "Дивитися шоу-ріл",
+        hero_btn_offer: "Отримати пропозицію",
+
+        video_eyebrow: "Відео",
+        video_title: "Подивіться, як це виглядає",
+        video_text: "Живі виступи, енергія сцени та емоції гостей — у форматі, який підсилює вашу подію.",
+        video_caption_1: "Шоу-ріл №1",
+        video_caption_2: "Шоу-ріл №2",
+
+        about_eyebrow: "Про нас",
+        about_title: "Преміальні сценічні рішення для подій",
+        about_text: "Ми створюємо шоу для компаній, event-агентств і організаторів подій у Чехії та по всій Європі.",
+
+        services_eyebrow: "Формати",
+        services_title: "Що ми пропонуємо",
+        service1_title: "Шоу-програми",
+        service1_text: "Сценічні виступи для корпоративних заходів, конференцій і гала-вечорів.",
+        service2_title: "Інтерактив з гостями",
+        service2_text: "Флешмоби, залучення аудиторії та участь команди у виступі.",
+        service3_title: "Індивідуальні постановки",
+        service3_text: "Кастомні шоу під бренд, тему події або спеціальний сценарій.",
+
+        events_eyebrow: "Для яких подій",
+        events_title: "Ідеально підходить для",
+        event1: "Корпоративні заходи",
+        event2: "Гала-вечері",
+        event3: "Конференції та відкриття",
+        event4: "Тімбілдинги",
+        event5: "Ювілеї компаній",
+        event6: "Презентації та запуски",
+
+        gallery_eyebrow: "Галерея",
+        gallery_title: "Моменти наших виступів",
+
+        why_eyebrow: "Чому ми",
+        why_title: "Чому нас обирають",
+        benefit1: "Професійні танцівники зі сценічним досвідом",
+        benefit2: "Гнучкі формати під різні типи подій",
+        benefit3: "Швидка комунікація та просте узгодження",
+        benefit4: "Індивідуальний підхід до кожного клієнта",
+        benefit5: "Працюємо в Чехії та по всій Європі",
+
+        reviews_eyebrow: "Відгуки",
+        reviews_title: "Що говорять клієнти",
+        review1_text: "“Команда створила саме той wow-ефект, який ми хотіли для нашої корпоративної вечері. Усе було стильно, професійно та дуже легко в комунікації.”",
+        review1_meta: "Олена К. · Event Manager, NOVA GROUP",
+        review2_text: "“Виступ вийшов яскравим, сучасним і дуже доречним для нашої аудиторії. Гості ще довго обговорювали шоу після події.”",
+        review2_meta: "Марек Р. · Marketing Lead, VISTRA",
+        review3_text: "“Нам сподобалося, що команда швидко адаптувала формат під наш захід і запропонувала рішення, яке справді підсилило програму вечора.”",
+        review3_meta: "Ірина Л. · HR Manager, ALTERRA",
+
+        cta_eyebrow: "Запит",
+        cta_title: "Давайте зробимо вашу подію незабутньою",
+        cta_text: "Розкажіть нам про ваш захід — ми запропонуємо формат шоу, який найкраще підійде саме вам.",
+        cta_btn: "Отримати пропозицію",
+
+        contact_eyebrow: "Контакти",
+        contact_title: "Зв’язатися з нами",
+        contact_text: "Напишіть нам, і ми допоможемо підібрати формат виступу під ваш захід.",
+        contact_phone_label: "Телефон / WhatsApp",
+        contact_location_label: "Локація",
+        contact_location: "Чехія / Європа",
+        whatsapp_btn: "Надіслати через WhatsApp",
+        form_email: "Надіслати на email",
+        form_whatsapp: "WhatsApp",
+        footer_text: "Dance Show Events · Танцювальні шоу для корпоративних подій · © 2026",
+
+        ph_name: "Ім’я",
+        ph_company: "Компанія",
+        ph_eventType: "Тип заходу",
+        ph_date: "Дата",
+        ph_message: "Повідомлення"
+      }
+    };
+
+    let currentLang = 'cs';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      document.getElementById('name').placeholder = translations[lang].ph_name;
+      document.getElementById('company').placeholder = translations[lang].ph_company;
+      document.getElementById('eventType').placeholder = translations[lang].ph_eventType;
+      document.getElementById('date').placeholder = translations[lang].ph_date;
+      document.getElementById('message').placeholder = translations[lang].ph_message;
+
+      document.getElementById('btn-cs').classList.toggle('active', lang === 'cs');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-uk').classList.toggle('active', lang === 'uk');
+    }
+
+    function getFormData() {
+      return {
+        name: document.getElementById('name').value.trim() || '-',
+        company: document.getElementById('company').value.trim() || '-',
+        eventType: document.getElementById('eventType').value.trim() || '-',
+        date: document.getElementById('date').value.trim() || '-',
+        message: document.getElementById('message').value.trim() || '-'
+      };
+    }
+
+    function buildPlainMessage() {
+      const data = getFormData();
+
+      if (currentLang === 'en') {
+        return `Hello, Dance Show Events!
+
+I would like to request an offer.
+
+Name: ${data.name}
+Company: ${data.company}
+Event type: ${data.eventType}
+Date: ${data.date}
+Message: ${data.message}`;
+      }
+
+      if (currentLang === 'uk') {
+        return `Вітаю, Dance Show Events!
+
+Хочу отримати пропозицію.
+
+Ім’я: ${data.name}
+Компанія: ${data.company}
+Тип заходу: ${data.eventType}
+Дата: ${data.date}
+Повідомлення: ${data.message}`;
+      }
+
+      return `Dobrý den, Dance Show Events!
+
+Mám zájem o nabídku.
+
+Jméno: ${data.name}
+Společnost: ${data.company}
+Typ akce: ${data.eventType}
+Datum: ${data.date}
+Zpráva: ${data.message}`;
+    }
+
+    function buildEncodedMessage() {
+      return encodeURIComponent(buildPlainMessage());
+    }
+
+    function sendWhatsApp() {
+      const phone = '420606034397';
+      const text = buildEncodedMessage();
+      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    }
+
+    function sendEmail() {
+      const subjectMap = {
+        cs: 'Poptávka Dance Show Events',
+        en: 'Dance Show Events Inquiry',
+        uk: 'Запит Dance Show Events'
+      };
+
+      const subject = encodeURIComponent(subjectMap[currentLang]);
+      const body = buildEncodedMessage();
+      window.location.href = `mailto:gaf7878@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    setLang('cs');
+  </script>
+</body>
+</html>
