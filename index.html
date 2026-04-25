@@ -679,25 +679,31 @@
         </div>
       </div>
 
-      <form class="form-box" action="https://formspree.io/f/xkokyabp" method="POST">
-        <input id="name" name="name" type="text" placeholder="Jméno" required>
-        <input id="company" name="company" type="text" placeholder="Společnost">
-        <input id="eventType" name="eventType" type="text" placeholder="Typ akce">
-        <input id="date" name="date" type="text" placeholder="Datum">
-        <textarea id="message" name="message" placeholder="Zpráva" required></textarea>
+<form class="form-box" action="https://formspree.io/f/xkokyabp" method="POST">
 
-        <input type="hidden" name="_subject" value="New request from Dance Show Events">
+  <input type="hidden" name="_subject" value="🔥 Новая заявка с сайта Dance Show Events">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_replyto" value="">
+  <input type="hidden" name="_autoresponse" value="Спасибо за заявку! Мы свяжемся с вами в ближайшее время.">
 
-        <div class="form-actions">
-          <button class="btn btn-email" type="submit" data-i18n="form_email">
-            Odeslat na email
-          </button>
+  <input id="name" name="name" type="text" placeholder="Jméno" required>
+  <input id="email" name="email" type="email" placeholder="Email" required>
+  <input id="phone" name="phone" type="text" placeholder="Telefon (WhatsApp)" required>
 
-          <button class="btn btn-whatsapp" type="button" onclick="sendWhatsApp()" data-i18n="form_whatsapp">
-            WhatsApp
-          </button>
-        </div>
-      </form>
+  <input id="company" name="company" type="text" placeholder="Společnost">
+  <input id="eventType" name="eventType" type="text" placeholder="Typ akce">
+  <input id="date" name="date" type="text" placeholder="Datum">
+  <textarea id="message" name="message" placeholder="Zpráva" required></textarea>
+
+  <div class="form-actions">
+    <button class="btn btn-email" type="submit">Odeslat</button>
+
+    <button class="btn btn-whatsapp" type="button" onclick="sendWhatsApp()">
+      WhatsApp
+    </button>
+  </div>
+
+</form>
 
     </div>
   </div>
