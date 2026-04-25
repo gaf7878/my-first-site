@@ -658,45 +658,50 @@
   </section>
 
   <section id="contact" class="section">
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-box">
-          <div class="eyebrow" data-i18n="contact_eyebrow">Kontakt</div>
-          <h2 style="margin-top:0;" data-i18n="contact_title">Spojte se s námi</h2>
-          <p style="color: rgba(255,255,255,0.68); margin-bottom: 28px;" data-i18n="contact_text">
-            Napište nám a pomůžeme vám vybrat ideální formát vystoupení pro vaši akci.
-          </p>
+  <div class="container">
+    <div class="contact-grid">
 
-          <div class="contact-line"><strong>Email:</strong> gaf7805@gmail.com</div>
-          <div class="contact-line"><strong data-i18n="contact_phone_label">Telefon / WhatsApp</strong>: +420 606 034 397</div>
-          <div class="contact-line"><strong data-i18n="contact_location_label">Lokalita</strong>: <span data-i18n="contact_location">Česko / Evropa</span></div>
+      <div class="contact-box">
+        <div class="eyebrow" data-i18n="contact_eyebrow">Kontakt</div>
+        <h2 style="margin-top:0;" data-i18n="contact_title">Spojte se s námi</h2>
+        <p style="color: rgba(255,255,255,0.68); margin-bottom: 28px;" data-i18n="contact_text">
+          Napište nám a pomůžeme vám vybrat ideální formát vystoupení pro vaši akci.
+        </p>
 
-          <div style="margin-top: 24px; display:flex; gap:12px; flex-wrap:wrap;">
-            <button class="btn btn-whatsapp" type="button" onclick="sendWhatsApp()" data-i18n="whatsapp_btn">
-              Odeslat přes WhatsApp
-            </button>
-          </div>
-        </div>
+        <div class="contact-line"><strong>Email:</strong> gaf7805@gmail.com</div>
+        <div class="contact-line"><strong data-i18n="contact_phone_label">Telefon / WhatsApp</strong>: +420 606 034 397</div>
+        <div class="contact-line"><strong data-i18n="contact_location_label">Lokalita</strong>: <span data-i18n="contact_location">Česko / Evropa</span></div>
 
-        <div class="form-box">
-          <input id="name" type="text" placeholder="Jméno">
-          <input id="company" type="text" placeholder="Společnost">
-          <input id="eventType" type="text" placeholder="Typ akce">
-          <input id="date" type="text" placeholder="Datum">
-          <textarea id="message" placeholder="Zpráva"></textarea>
-
-          <div class="form-actions">
-            <button class="btn btn-email" type="button" onclick="sendEmail()" data-i18n="form_email">
-              Odeslat na email
-            </button>
-            <button class="btn btn-whatsapp" type="button" onclick="sendWhatsApp()" data-i18n="form_whatsapp">
-              WhatsApp
-            </button>
-          </div>
+        <div style="margin-top: 24px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button class="btn btn-whatsapp" type="button" onclick="sendWhatsApp()" data-i18n="whatsapp_btn">
+            Odeslat přes WhatsApp
+          </button>
         </div>
       </div>
+
+      <form class="form-box" action="https://formspree.io/f/xkokyabp" method="POST">
+        <input id="name" name="name" type="text" placeholder="Jméno" required>
+        <input id="company" name="company" type="text" placeholder="Společnost">
+        <input id="eventType" name="eventType" type="text" placeholder="Typ akce">
+        <input id="date" name="date" type="text" placeholder="Datum">
+        <textarea id="message" name="message" placeholder="Zpráva" required></textarea>
+
+        <input type="hidden" name="_subject" value="New request from Dance Show Events">
+
+        <div class="form-actions">
+          <button class="btn btn-email" type="submit" data-i18n="form_email">
+            Odeslat na email
+          </button>
+
+          <button class="btn btn-whatsapp" type="button" onclick="sendWhatsApp()" data-i18n="form_whatsapp">
+            WhatsApp
+          </button>
+        </div>
+      </form>
+
     </div>
-  </section>
+  </div>
+</section>
 
   <footer class="footer">
     <div class="container">
